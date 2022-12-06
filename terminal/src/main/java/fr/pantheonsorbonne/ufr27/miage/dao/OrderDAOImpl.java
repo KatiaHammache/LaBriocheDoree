@@ -4,6 +4,7 @@ package fr.pantheonsorbonne.ufr27.miage.dao;
 import fr.pantheonsorbonne.ufr27.miage.exception.OrderNotFoundException;
 import fr.pantheonsorbonne.ufr27.miage.exception.ProductNotFoundException;
 import fr.pantheonsorbonne.ufr27.miage.model.Employee;
+import fr.pantheonsorbonne.ufr27.miage.model.Menu;
 import fr.pantheonsorbonne.ufr27.miage.model.Order;
 import fr.pantheonsorbonne.ufr27.miage.model.Product;
 import javax.enterprise.context.ApplicationScoped;
@@ -26,6 +27,9 @@ public class OrderDAOImpl implements OrderDAO{
     @Inject
     ProductDAO productDAO;
 
+    @Inject
+    MenuDAO menuDAO;
+
     @Override
     public Order findSingleOrder(Integer orderId) throws OrderNotFoundException {
         try {
@@ -40,11 +44,12 @@ public class OrderDAOImpl implements OrderDAO{
     public Integer createOrder(Integer productId) throws ProductNotFoundException {
         try {
             List<Product> productList = new ArrayList<>();
+            List<Menu> menuList = new ArrayList<>();
             productList.add(productDAO.findSingleProduct(productId));
             Employee employee = new Employee();
             float floatvalue = productDAO.findSingleProduct(productId).getProductPrice();
             employee.setId(1);
-            Order o = new Order(UUID.randomUUID().hashCode(), productList, LocalDate.now(), floatvalue, null, employee);
+            Order o = new Order(UUID.randomUUID().hashCode(), productList,menuList, LocalDate.now(), floatvalue, null, employee);
             em.persist(o);
             return o.getId();
         }catch (NoResultException e){
@@ -62,7 +67,7 @@ public class OrderDAOImpl implements OrderDAO{
             productList.add(product);
             o.setProducts(productList);
             o.setOrderPrice(o.getOrderPrice() + product.getProductPrice());
-            em.persist(o);
+           em.persist(o);
             return o.getId();
         }catch (NoResultException e){
             throw new ProductNotFoundException(productId);

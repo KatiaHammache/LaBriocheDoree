@@ -99,14 +99,18 @@ public class Order {
     public List<Product> getProducts() {
         return orderContent;
     }
+    public List<Menu> getMenus(){
+        return orderMenus;
+    }
 
     public void setProducts(List<Product> products) {
         this.orderContent = products;
     }
 
-    public Order(Integer id, List<Product> orderContent, LocalDate orderDate, Float orderPrice, Client client, Employee employee) {
+    public Order(Integer id, List<Product> orderContent,List<Menu> orderMenus, LocalDate orderDate, Float orderPrice, Client client, Employee employee) {
         this.id = id;
         this.orderContent = orderContent;
+        this.orderMenus = orderMenus;
         this.orderDate = orderDate;
         this.orderPrice = orderPrice;
         this.client = client;

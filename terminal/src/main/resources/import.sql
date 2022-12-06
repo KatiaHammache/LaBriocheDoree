@@ -1,4 +1,6 @@
-REPLACE INTO `Product` (`product_id`, `product_name`, `product_price`, `product_type`) VALUES (0, 'TOASTÉ GRILLED CHEESE', 5.0, 'SANDWICH'), (1, 'TOASTÉ POULET RACLETTE', 5.0, 'SANDWICH'), (2, 'CUISINÉ SAUMON AVOCAT', 6.0, 'SANDWICH'), (3, 'AUTHENTIQUE THON CRUDITÉS', 5.0, 'SANDWICH'), (4, 'FUSETTE AUX FRAMBOISES', 5.0, 'DESSERT'), (5, 'FUSETTE CHOCOLAT BANANE', 5.50, 'DESSERT'), (6, 'PEPSI 50cl', 1.50, 'BOISSON');
+REPLACE INTO `Product` (`product_id`, `product_name`, `product_price`, `product_type`) VALUES  (1, 'TOASTÉ POULET RACLETTE', 5.0, 'SANDWICH'), (2, 'CUISINÉ SAUMON AVOCAT', 6.0, 'SANDWICH'), (3, 'AUTHENTIQUE THON CRUDITÉS', 5.0, 'SANDWICH'), (4, 'FUSETTE AUX FRAMBOISES', 5.0, 'DESSERT'), (5, 'FUSETTE CHOCOLAT BANANE', 5.50, 'DESSERT'), (6, 'PEPSI 50cl', 1.50, 'BOISSON');
+
+REPLACE INTO `Menu` (`menu_id`, `menu_name`, `menu_price`) VALUES  (1, 'FORMULE PATISSERIE', 5.0), (2, 'FORMULE DEJEUNER', 9.50);
 
 REPLACE INTO `Client` (`client_id`, `clientFirstName`, `clientLastName`) VALUES (0, 'Max', 'Verstappen'), (1, 'Nico', 'Roseberg'), (2, 'Lewis', 'Hamilton'), (3, 'Sebastien', 'Vettel');
 

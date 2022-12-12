@@ -16,7 +16,6 @@ import javax.transaction.Transactional;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.UUID;
 
 @ApplicationScoped
 public class OrderDAOImpl implements OrderDAO{
@@ -45,7 +44,7 @@ public class OrderDAOImpl implements OrderDAO{
             Employee employee = new Employee();
             float floatvalue = orderItemDAO.findSingleItem(itemId).getItemPrice();
             employee.setId(1);
-            Order o = new Order(UUID.randomUUID().hashCode(), orderItemList, LocalDate.now(), floatvalue, null, employee);
+            Order o = new Order(orderItemList, LocalDate.now(), floatvalue, null, employee);
             em.persist(o);
             return o.getId();
         }catch (NoResultException e){

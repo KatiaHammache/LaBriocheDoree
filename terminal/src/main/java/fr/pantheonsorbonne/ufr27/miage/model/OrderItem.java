@@ -49,8 +49,4 @@ public abstract class OrderItem {
         this.itemPrice = itemPrice;
     }
 
-
-
-
-
 }

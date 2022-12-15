@@ -36,7 +36,7 @@ public class PaymentResource {
     @Path("authentification")
     @POST
     @Consumes(MediaType.APPLICATION_FORM_URLENCODED)
-    public Response cardPayment(@FormParam("clientId") Integer clientId, @FormParam("password") Integer password) {
+    public Response cardPaymentForm(@FormParam("clientId") Integer clientId, @FormParam("password") Integer password) {
             System.out.println(clientId);
         try {
             return Response.accepted(paymentService.cardPayment(clientId,password)).build();
@@ -49,11 +49,12 @@ public class PaymentResource {
         }
     }
 
-//    @Path("client/{clientId}/password/{password}")
-//    @POST
-//    @Produces(MediaType.APPLICATION_JSON)
-//    public Response cardPayment(@PathParam("clientId") Integer clientId, @PathParam("password") Integer password) throws ClientNotFoundException, SoldUnsifficientException, PasswordIncorrectException {
-//        return Response.ok(paymentService.cardPayment(clientId,password)).build();
-//    }
+
+    @Path("client/{clientId}/password/{password}")
+    @POST
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response cardPayment(@PathParam("clientId") Integer clientId, @PathParam("password") Integer password) throws ClientNotFoundException, SoldUnsifficientException, PasswordIncorrectException {
+        return Response.ok(paymentService.cardPayment(clientId,password)).build();
+    }
 
 }

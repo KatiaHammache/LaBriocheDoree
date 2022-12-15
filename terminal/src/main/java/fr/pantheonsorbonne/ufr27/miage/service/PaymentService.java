@@ -11,4 +11,7 @@ public interface PaymentService {
 
     String receiveURL(String url);
 
+    Integer stockClientId(Integer clientId);
+
+    Integer getClientId();
 }

@@ -4,8 +4,9 @@ REPLACE INTO `Client` (`client_id`, `clientFirstName`, `clientLastName`) VALUES 
 
 REPLACE INTO `Employee` (`employee_id`, `firstName`, `lastName`) VALUES (0, 'Liza', 'Watson'), (1, 'Florentino', 'Perez');
 
+REPLACE INTO `Order` (`order_id`, `order_date`, `order_price`, `client_id`, `employee_id`) VALUES (1, '2022-12-15', 5.0, 1, 1);
 
-/*
+    /*
 REPLACE INTO `Venue` (`idVenue`, `venueDate`, `idLocation`) VALUES (1,'2022-06-06',1),(2,'2022-06-06',1),(3,'2021-02-03',3),(4,'2022-01-03',2);
 
 REPLACE INTO `VenueLineUp` (`idVenue`, `showTime`, `artist_idArtist`) VALUES (1,'20:00',1),(2,'22:00',1),(2,'19:30',2),(3,'22:00',3);

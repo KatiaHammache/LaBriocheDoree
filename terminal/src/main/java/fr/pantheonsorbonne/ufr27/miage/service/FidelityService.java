@@ -1,11 +1,12 @@
 package fr.pantheonsorbonne.ufr27.miage.service;
 
-import fr.pantheonsorbonne.ufr27.miage.dto.ClientDTO;
-import fr.pantheonsorbonne.ufr27.miage.exception.ItemNotFoundException;
-import fr.pantheonsorbonne.ufr27.miage.exception.OrderNotFoundException;
+import java.util.List;
 
 public interface FidelityService {
 
     Integer getTotalPoints (Integer client_id);
 
+    List<Integer> sendPointsToClientAccount(Integer pointsToAdd,Integer clientId);
+
+    List<Integer> sendFidelityInformation(Integer pointsToAdd, Integer clientId);
 }

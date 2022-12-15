@@ -29,10 +29,20 @@ public class OrderDTO {
         this.orderItemDTOS = productDTO;
     }
 
+    public OrderDTO(Integer orderId, Date localDate, Float orderPrice, Integer employeeId, double totalPrice, Collection<OrderItemDTO> orderItemDTOS) {
+        this.orderId = orderId;
+        this.localDate = localDate;
+        this.orderPrice = orderPrice;
+        this.employeeId = employeeId;
+        this.totalPrice = totalPrice;
+        this.orderItemDTOS = orderItemDTOS;
+    }
+
     Collection<OrderItemDTO> productDTO;
 
     public OrderDTO() {
     }
+
 
     public Date getLocalDate() {
         return localDate;

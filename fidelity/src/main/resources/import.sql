@@ -1,4 +1,5 @@
 REPLACE INTO `Account` (`account_id`, `total_points`) VALUES (1, 200), (2, 0), (3, 300);
+REPLACE INTO `Client` (`client_id`, `first_name`,`last_name`) VALUES (1, 'Olivier', 'Giroud'), (2, 'Kylian', 'Mbappé'), (3, 'Hugo', 'Lloris');
 
 /*
 REPLACE INTO `Artist` (`idArtist`, `name`) VALUES (1,'Radiohead'),(2,'Billie Eillish'),(3,'French Cowboy');

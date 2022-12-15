@@ -6,6 +6,7 @@ import fr.pantheonsorbonne.ufr27.miage.model.Account;
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
 import javax.security.auth.login.AccountNotFoundException;
+import java.util.List;
 
 @ApplicationScoped
 public class AccountServiceImpl implements AccountService{
@@ -26,10 +27,12 @@ public class AccountServiceImpl implements AccountService{
     }
 
     @Override
-    public void addPointsToAccount(Integer client_id) throws AccountNotFoundException {
+    public void addPointsToAccount(List<Integer> clientInformation) throws AccountNotFoundException {
         //rajoute des points après que le client ai effectué un achat
         //il faut récuperer le total price et convertir chaque euro en 10 points
-        accountDAO.addPointsToAccount(client_id);
+        Integer clientId = clientInformation.get(1);
+        Integer pointsToAdd = clientInformation.get(0);
+        accountDAO.addPointsToAccount(clientId,pointsToAdd);
     }
 
     @Override

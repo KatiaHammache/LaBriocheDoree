@@ -37,11 +37,14 @@ public class OrderServiceImpl implements OrderService {
         for (OrderItem p : o.getOrderContent()){
             pp.add(new OrderItemDTO(p.getItemPrice(), p.getId(), p.getItemName()));
         }
-        // TODO mettre une condition pour vtérifier si le client s'est connecté pour metre son clientId dans l'orderDTO
-        if (this.client != null) {
-            return  new OrderDTO(o.getId(), o.getOrderDate(), o.getOrderPrice(), o.getEmployee().getId(), this.client.getId(), o.getOrderPrice(), pp);
+        Integer clientid;
+        if (this.client == null){
+            clientid = null;
+        } else {
+            clientid = this.client.getId();
         }
-            return  new OrderDTO(o.getId(), o.getOrderDate(), o.getOrderPrice(), o.getEmployee().getId(), o.getOrderPrice(), pp);
+        // TODO mettre une condition pour vérifier si le client s'est connecté pour mettre son clientId dans l'orderDTO
+        return  new OrderDTO(o.getId(), o.getOrderDate(), o.getOrderPrice(), o.getEmployee().getId(), clientid, o.getOrderPrice(), pp);
     }
     public Collection<OrderItem> getOrderItemList() { //Ici c'est les articles du DTO
         Collection<OrderItem> orderItems = orderItemDAO.findAllItems();

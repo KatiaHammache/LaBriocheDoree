@@ -5,56 +5,60 @@ fidélité (recois des messages JMS ) DB
 
 
 ------------
+# Projet Caisse
 
+# 1.Système à modéliser
 
-# Système à modéliser
-un système de caisse ( préparation d’un commande ) utilisé par les employés d’une chaîne de restauration.
+Un système de caisse ( avec préparation d’une commande jusqu'à son paiement ) utilisé par les employés d’une chaîne de restauration.
+
+Au total, nous avons 5 projets : Client - Employe - Terminal - Bank - Fidelity
+
+client → client REST
+
+employe → serveur REST + JMS
+
+terminal → serveur JMS
+
+bank → serveur REST + JMS
+
+fidelity → serveur JMS
 
 
 # DESCRIPTION DU SYSTEME
 
-On souhaite faciliter les échanges entre client et vendeur dans la restauration.
-Pour ce faire nous allons modéliser une interface pour les employés en prenant exemple de la chaine de restauration “Brioche dorée”.
-Tous d’abord on choisit le type de commande “Sur place “ ou “Emporté”.
-Puis on a direct accès à tout les produits. Pour faciliter, tout les produits sont classées selon leur genre ( traiteur, viennoiserie, dessert, sandwich, salade …)
-A chaque fois qu’on ajoute un produit, on a accès à la commande en cours. ( avec possibilité de effacer la dernière ligne ou un ligne en particulier)
-Un système de formule est également mis en place (avec des formules disponibles seulement le matin ) on peux entrer les formules de 2 manières:
-directement via la partie formule : ici on choisi notre formule puis l’interface nous affiche 1 à 1 les produits compris dedans ( ex: formule sandwich → choisir sandwich → choisir dessert → choisir boisson ( avec 0,50€ de supplément pour les boissons )
-Une option “Appliquer formule” est disponible avec d’un coté tout les produits de la commande et de l’autre toutes les formules possibles, on sélectionne les produits puis on choisis la formule associée ci elle existe
-En allant sur finaliser, on aura accès à la commande avec la possibilité de payer en espèce et carte bleu.
-Une fois la commande terminée, on l’enregistre dans la bdd.
-Au niveau des comptes , dans la caisse il y aura 2 types de compte ( compte employé et compte responsable.
-Responsable :On a la possibilité d’avoir accès à toutes les commandes effectué avec comme caractéristique : Date de la commande, montant, nom de l’employé, nom du client ( si carte de fidélité scanné ), n°ticket.
-Système de fidélité : les clients peuvent avoir une carte de fidélité gratuite, ils auront seulement à l’activer puis la scanner à chaque passage. Les avantages sont les suivants :
-1€ d’achat correspond à 10points
-300points : -10%
+On souhaite faciliter les échanges entre client et employé dans la restauration. Pour ce faire nous allons modéliser une interface pour les employés.
 
-# UPDATE :
+On commence par avoir un accès direct à tout les produits. À chaque ajout de produit, les produits sont stockés dans une commande. Avec la possibilité d’effacer des produits de la commande.
 
-## ACTEURS : Client - Serveur - Caisse - Gestion Fidélité - Banque
+Un système de formule est également disponible : nous avons 2 formules, une formule pâtisserie (composée d’un dessert et d’une boisson) et une formule déjeuner.(composée d’un sandwich, d’un dessert et d’une boisson)
 
+Avant de finaliser la commande, on a la possibilité de la payer.
 
-## Exigences :
-- Un client doit pouvoir utiliser sa carte de fidélité et appliquer des réductions. ( 300 points → -10% )
+Nous avons également à disposition un système de fidélité : les clients peuvent avoir un compte fidélité. Une fois connecté, à chaque passage en caisse le client obtient des points et à un certain nombre de points une remise immédiate est appliquée sur la commande.
+
+## Règles métier
+
+- 1 employé peut utiliser une caisse
+- 1 employé peut s’occuper d’une commande à la fois
+- Seul un dessert et une boisson peuvent former une formule pâtisserie
+- Seul un sandwich, un dessert et une boisson peuvent former une formule déjeuner
+- Si les 2 formules sont possible choisir la “déjeuner”
+
+## Exigences du système :
+- Le client doit pouvoir utiliser sa carte de fidélité et appliquer des réductions. ( 300 points → -10% sur la commande )
 - Le client doit pouvoir payer
-- La gestion de fidélité permet de cumuler des points à chaque commande en fonction du montant de celle-ci ( 1€ = 10 points )
-- Le serveur peut annuler une commande
-- Le serveur peut modifier (ajouter/retirer des produits) une commande tant qu’elle n’es pas confirmé.
-- La caisse peut imprimer un TICKET DE CAISSE
-- La caisse doit afficher le total lors de la commande
-- “La caisse doit permettre de modifier le prix d’un produit, ainsi que sa quantité”
-- La caisse doit pouvoir appliquer des formules/menu ( automatiquement )
-- Dans le cas ou plusieurs formules à prix différents prendre la formule qui avantage le client.
-- La caisse doit pouvoir appliquer des suppléments
-- La banque peux refuser ou accepter la transaction avec la commande.
-- Une commande terminée doit être enemployé (server REST, pas de DB, push des messages jms)
-- caisse (recois des messages JMS, envoie à la banque et au programme de fidélité) DB
-- bank (recois des messages JMS, envoie JMS) DB
-- fidélité (recois des messages JMS ) DB
+La gestion de fidélité permet de cumuler des points à chaque commande en fonction du montant de celle-ci (1€ = 10 points).
+-  L’employé peut supprimer une commande
+-  L'employé peut modifier une commande tant que celle-ci n’est pas payée (ajouter produit, supprimé produit)
+-  La caisse doit générer un ticket de caisse
+-  La caisse doit envoyer le prix total avant de faire payer le client
+-  La caisse doit pouvoir appliquer des formule “automatiquement”
+-  La banque peut accepter ou refuser un paiement
 
+# 2. Schémas et diagrammes de séquences
 
-![](2022-11-10-15-13-16.png)
-![](2022-11-10-15-13-34.png)
+## Diagramme de classe
+
 
 ## Diagramme de séquence
 

@@ -73,7 +73,7 @@ public class TerminalRoutes extends RouteBuilder {
         from("jms:queue:" + jmsPrefix + "/paymentFeat?exchangePattern=InOut")
                 .unmarshal().json()
                 .bean(paymentGateway, "isAbleForPayment")
-                .log("${in.body}")
+                .log("### ${in.body}")
                 .marshal().json() // "ok {totalPrice}"
                 .to("jms:queue:" + jmsPrefix + "/readyToPay?exchangePattern=InOut")
                 //.unmarshal().json()
@@ -88,7 +88,18 @@ public class TerminalRoutes extends RouteBuilder {
 
         from("jms:queue:" + jmsPrefix + "/sendPaidPrice?exchangePattern=InOut")
                 .log("Here is the payment success ${in.body}")
+                .unmarshal().json()
+                .bean(fidelityGateway, "sendFidelityInformation")
+                .marshal().json()
                 .toD("jms:queue:" + jmsPrefix + "/paymentDone?exchangePattern=InOut");
+
+
+        from("direct:sendFidelity")
+                .log("fidelity information ${in.body}")
+                .marshal().json()
+                .to("jms:queue:" + jmsPrefix + "/updateFidelity?exchangePattern=InOut");
+
+
 
     }
 

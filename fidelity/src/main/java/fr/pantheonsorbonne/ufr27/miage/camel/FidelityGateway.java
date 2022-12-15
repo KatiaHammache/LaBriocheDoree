@@ -11,6 +11,7 @@ import org.apache.camel.Handler;
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
 import javax.jms.ConnectionFactory;
+import java.util.List;
 
 @ApplicationScoped
 public class FidelityGateway {
@@ -31,8 +32,9 @@ public class FidelityGateway {
     }
 
     @Handler
-    void addPointsToAccount (Integer client_id) throws AccountNotFoundException, MaximumBonusPointsReachedException, javax.security.auth.login.AccountNotFoundException {
-        accountService.addPointsToAccount(client_id);
+    void addPointsToAccount (List<Integer> clientInformation) throws AccountNotFoundException, MaximumBonusPointsReachedException, javax.security.auth.login.AccountNotFoundException {
+        System.out.println(clientInformation);
+        accountService.addPointsToAccount(clientInformation);
     }
 
     //@Handler

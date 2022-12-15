@@ -41,6 +41,11 @@ public class FidelityRoutes extends RouteBuilder {
                 .marshal().json()
                 .to("jms:queue:" + jmsPrefix + "clientConnected?exchangePattern=InOnly");
 
+
+        from("jms:queue:" + jmsPrefix + "/updateFidelity?exchangePattern=InOut")
+                .unmarshal().json()
+                .bean(fidelityGateway, "addPointsToAccount")
+                .log("### ${in.body}");
     }
 
 

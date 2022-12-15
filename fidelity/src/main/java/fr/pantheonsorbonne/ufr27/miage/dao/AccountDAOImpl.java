@@ -32,13 +32,16 @@ public class AccountDAOImpl implements AccountDAO{
         return account.getTotalPoints();
     }
 
+    @Transactional
     @Override
-    public void addPointsToAccount(Integer client_id) throws AccountNotFoundException {
+    public void addPointsToAccount(Integer clientId, Integer pointsToAdd) throws AccountNotFoundException {
 
         try {
-            Account a = findClientAccount(client_id);
+            Account a = findClientAccount(clientId);
             if (a.getTotalPoints() < 300) {
-                a.setTotalPoints(a.getTotalPoints());
+                a.setTotalPoints(a.getTotalPoints()+pointsToAdd);
+                System.out.println(a.getTotalPoints());
+                em.persist(a);
             }
             //Integer pricePayed = avoir le montant total payé
             //get total Point du compte si le total est inferieur à 300 alors on rajoute sinon on ne fait rien

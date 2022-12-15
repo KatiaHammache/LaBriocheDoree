@@ -10,7 +10,7 @@ public interface AccountDAO {
 
     Integer getTotalPoints(Integer client_id) throws AccountNotFoundException;
 
-    void addPointsToAccount (Integer client_id) throws AccountNotFoundException;
+    void addPointsToAccount (Integer client_id, Integer pointsToAdd) throws AccountNotFoundException;
 
     void useBonusPoints (Integer client_id) throws AccountNotFoundException;
 

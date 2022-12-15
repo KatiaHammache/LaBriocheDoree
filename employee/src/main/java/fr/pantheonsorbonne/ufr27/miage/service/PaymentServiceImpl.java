@@ -40,5 +40,4 @@ public class PaymentServiceImpl implements PaymentService{
     public void receiveURL(String url) {
         this.url = url;
     }
-
 }

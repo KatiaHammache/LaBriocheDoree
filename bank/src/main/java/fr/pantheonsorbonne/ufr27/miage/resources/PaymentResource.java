@@ -35,21 +35,20 @@ public class PaymentResource {
 
     @Path("authentification")
     @POST
-    @Consumes(MediaType.TEXT_HTML)
-    public Response cardPayment(@FormParam("clientId") Integer clientId, @FormParam("password") Integer password)  {
+    @Consumes(MediaType.APPLICATION_FORM_URLENCODED)
+    public Response cardPayment(@FormParam("clientId") Integer clientId, @FormParam("password") Integer password) {
+            System.out.println(clientId);
         try {
-
             return Response.accepted(paymentService.cardPayment(clientId,password)).build();
-
         } catch (ClientNotFoundException e) {
             throw new WebApplicationException(404);
         } catch (PasswordIncorrectException e) {
-            throw new WebApplicationException(404);
+            throw new WebApplicationException(401);
         } catch (SoldUnsifficientException e) {
-            throw new WebApplicationException(404);
+            throw new WebApplicationException(401);
         }
     }
-//
+
 //    @Path("client/{clientId}/password/{password}")
 //    @POST
 //    @Produces(MediaType.APPLICATION_JSON)

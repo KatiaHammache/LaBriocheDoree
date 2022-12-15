@@ -24,6 +24,10 @@ public class Main implements Runnable {
         clientRes = client.getCustomerResponse();
         if (clientRes.equals("yes")){
             //Lancer la procédure de connexion
+            client.askForClientId();
+            clientRes = client.getCustomerResponse();
+            client.connectClient(clientRes);
+
         }
 
         client.displayProducts();
@@ -53,6 +57,8 @@ public class Main implements Runnable {
         } while (!clientRes.equals("end"));
 
         //Initier le paiement
+
+        client.initPayment();
 
     }
 

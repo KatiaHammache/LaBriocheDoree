@@ -1,5 +1,6 @@
 package fr.pantheonsorbonne.ufr27.miage.camel;
 
+import fr.pantheonsorbonne.ufr27.miage.dto.ClientDTO;
 import fr.pantheonsorbonne.ufr27.miage.dto.OrderDTO;
 import fr.pantheonsorbonne.ufr27.miage.dto.OrderItemDTOContainer;
 import org.apache.camel.CamelContext;
@@ -23,6 +24,9 @@ public class EmployeeRoutes extends RouteBuilder {
 
     @Inject
     PaymentGateway paymentGateway;
+
+    @Inject
+    FidelityGateway fidelityGateway;
 
     @Inject
     CamelContext camelContext;
@@ -77,6 +81,17 @@ public class EmployeeRoutes extends RouteBuilder {
                 .marshal().json()
                 .to("jms:queue:" + jmsPrefix + "/paymentFeat?exchangePattern=InOut")
                 .bean(paymentGateway, "receiveURL");
+
+        from("direct:connection")
+                .setHeader("Action", constant("connection"))
+                .marshal().json()
+                .to("jms:queue:" + jmsPrefix + "/fidelityFeat?exchangePattern=InOut")
+                .unmarshal().json(ClientDTO.class)
+                .bean(fidelityGateway, "setClient");
+                
+        from("jms:queue:" + jmsPrefix + "/paymentDone?exchangePattern=InOut")
+                .unmarshal().json()
+                .log("Here is the payment success ${in.body}");
 
     }
 

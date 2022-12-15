@@ -89,9 +89,9 @@ public class EmployeeRoutes extends RouteBuilder {
                 .unmarshal().json(ClientDTO.class)
                 .bean(fidelityGateway, "setClient");
                 
-        from("jms:queue:" + jmsPrefix + "/paymentDone?exchangePattern=InOut")
-                .unmarshal().json()
-                .log("Here is the payment success ${in.body}");
+//        from("jms:queue:" + jmsPrefix + "/paymentDone?exchangePattern=InOut")
+//                .unmarshal().json()
+//                .log("Here is the payment success ${in.body}");
 
     }
 

@@ -36,7 +36,7 @@ public class PaymentServiceImpl implements PaymentService{
     @Override
     public Float isAbleForPayment(Integer orderId) throws OrderNotFoundException{
         Order o = orderDao.findSingleOrder(orderId);
-        if(o.getClient().getId() != null){
+        if(o.getClient() != null){
             this.stockClientId(o.getClient().getId());
         }
         if (o.getOrderPrice() > 0){

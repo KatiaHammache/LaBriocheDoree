@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>payment</title>
+</head>
+<body>
+<style>
+    .container{
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-direction: column;
+        min-width: 70%;
+    }
+    div{
+        margin-top: 30px;
+    }
+    .form{
+        display: flex;
+        align-items: center;
+        justify-content: space-around;
+    }
+    .button{
+        margin-top: 30px;
+    }
+    .input{
+        margin-left: 15px;
+    }
+    h2{
+        text-align: center;
+    }
+</style>
+<h2>Entrez vos Données</h2>
+
+
+<form  class="container" method="post" action="payment/authentification">
+    <div class="form"> client_id : <input type="text" name="clientId" class="input">
+    </div>
+    <div class="form"> password : <input type="password" name="password" class="input">
+    </div>
+    <input type="submit" value="valider" class="button">
+</form>
+</body>
+</html>
